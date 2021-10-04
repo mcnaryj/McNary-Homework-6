@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+</head>
+
+<body>
+
+    <header class="jumbotron container-fluid mt-2 text-center p-2" style="background-color: blue ;color: white;">
+        Weather Dashboard</header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 bg-light">
+                <h5>Search for a City:</h5>
+                <div class="input form">
+                    <input id="search-city" type="text" placeholder="enter a city">
+                    <button id="search-button">Search City</button>
+                    <div></div>
+                    <button id="clear-history">Clear History</button>
+                    <!--added cities will appear here in the css, they belong to the col-lg-3 bg-light div-->
+                </div>
+                <div class="col-lg-9" id="forecast-weather">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="Assets/js/script.js"></script>
+
+</body>
+
+</html>

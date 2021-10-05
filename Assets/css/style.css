@@ -1,0 +1,11 @@
+header {
+    margin-top: 200px;
+
+}
+
+.recent-searches {
+padding: 10px;
+margin-left: 10px;
+background-color: rgb(206, 206, 206);
+border-radius: 20px;
+}

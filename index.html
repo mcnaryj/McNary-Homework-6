@@ -19,36 +19,34 @@
     <!-- below is our header -->
     <header class="jumbotron container-fluid mt-2 text-center p-2"
         style="background-color: rgb(7, 7, 37) ;color: white;">
-        Weather Dashboard <h1 id="header-text" class="display-2"></h1>
+        Weather Dashboard
     </header>
     <!-- then we have a first container -->
     <div class="container-fluid">
-        <div id="recent-searches">
-
-
-        </div>
         <form>
+            <div>
+                <h3 id="recent-searches-row">Recent Searches:</h3>
+                <div id="recent-searches"></div>
+            </div>
             <div class="form-row">
                 <input type="text" id="search-city" placeholder="Search for a City" class="form-control"
                     name="city"></input>
                 <!-- fontawesome magnifying glass -->
                 <button id="search-button" class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
-                <button id="clear-history" class="btn btn-primary" type="click">Clear History</button>
+                <button id="clear-history" class="btn btn-primary" type="click">Clear Search History</button>
 
             </div>
-
-            <div id="previous-search"></div>
         </form>
-        <div id="current-weather" class="border rounded">
+    </div>
+    <div id="current-weather" class="border rounded"></div>
 
-            <div class="col-lg-9" id="forecast-weather"></div>
-        </div>
-        <div id="five-day-container" style="display: flex; flex-direction: row;"></div>
+    <div id="five-day-container" style="display: flex; flex-direction: row;"></div>
 
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <!-- added latest moment script -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-        <script src="Assets/js/script.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="Assets/js/script.js"></script>
+
 </body>
 
 </html>

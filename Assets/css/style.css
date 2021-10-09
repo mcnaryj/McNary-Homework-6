@@ -1,16 +1,28 @@
+
 header {
     margin-top: 200px;
 
 }
 
-.recent-searches {
-padding: 10px;
-margin-left: 10px;
-background-color: rgb(206, 206, 206);
-border-radius: 20px;
+
+#recent-searches-row {
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 20px;
+    width: 27%;
+
+}
+#recent-searches {
+    padding: 10px;
+    margin-left: 10px;
+    background-color: rgb(206, 206, 206);
+    border-radius: 20px;
+    width: 25%;
+    font-size: 20px;
 }
 
 .form-row {
-width: 80%;
-display: inline;
-flex-direction: column;}
+    width: 80%;
+    display: inline;
+    flex-direction: column;
+}

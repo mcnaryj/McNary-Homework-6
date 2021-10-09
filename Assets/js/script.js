@@ -5,12 +5,11 @@ var apiUrlOneCall = "https://api.openweathermap.org/data/2.5/onecall?"
 var apiURL = "https://api.openweathermap.org/data/2.5/weather?q=";
 var city = "";
 searchedCity = document.querySelector("#search-city");
-// var clearHistory = $("#clear-history");
 currentWeatherContainer = document.querySelector("#current-weather");
 fiveDayContainer = document.querySelector("#five-day-container");
 recentSearches = document.querySelector("#recent-searches");
 
-
+localStorage.getItem("Stored City");
 function getLatLon(cityInput) {
     // var city = localStorage.getItem("city");
     var searchedCity = localStorage.getItem("cities");
@@ -18,11 +17,12 @@ function getLatLon(cityInput) {
     console.log(search);
     fetch(search)
         .then(function (response) {
-            if (response.ok) {
+            if (response.status === 200) {
                 console.log(response);
                 response.json().then(function (data) {
                     var latitude = data.coord.lat;
                     var longitude = data.coord.lon;
+                    // storing latitude and longitude for UV url
                     localStorage.setItem("Longitude", longitude);
                     localStorage.setItem("Latitude", latitude);
                     console.log(latitude, longitude);
@@ -40,10 +40,8 @@ function getLatLon(cityInput) {
             }
 
         })
+
     uvIndex();
-
-
-
 }
 
 
@@ -153,24 +151,22 @@ function currentWeather() {
         })
 }
 
-// loop tracking previous cities
+function getPastSearch() {
+    localStorage.getItem("Stored Cities")
+    $('#recent-searches').append(previousSearch)
 
 
-// function to clear existing search history
-// function clearHistory(event) {
-//     event.preventDefault();
-//     storedCity = [];
-//     localStorage.removeItem("cities");
-//     document.location.reload();
-// }
 
+}
 function addCity(storedCity) {
     storedCity = localStorage.getItem("cities");
-
     {
         var previousSearch = $('<div>').text(storedCity);
         $('#recent-searches').append(previousSearch)
+        localStorage.setItem("Stored Cities", JSON.stringify(previousSearch));
+
     }
+
 }
 
 $('#search-button').on("click", (event) => {

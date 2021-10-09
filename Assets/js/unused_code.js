@@ -155,3 +155,40 @@ var getCurrentConditions = (event) => {
 
 //         }
 // //         }
+
+// $("#search-button").on('click', '.searchBtn', function (event) {
+//     event.preventDefault();
+//     event.stopPropagation();
+//     var city = $("#search-button").find("input").val();
+//     console.log(city);
+//     if (savedCities.indexOf(city) === -1) {
+//         savedCities.push(city);
+//         window.localStorage.setItem('cities', JSON.stringify(savedCities))
+//         previousButton(city);
+//     }
+//     localStorage.setItem("city", city);
+// });
+
+
+// var h2El = document.createElement("h2");
+// var city = localStorage.getItem("cities");
+// var dateString = moment.unix(data.current.dt).format("MM/DD/YYYY");
+// h2El.textContent = city + " " + dateString;
+// var weatherIcon = document.createElement("img");
+// var iconcode = data.current.weather[0].icon;
+// var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+// weatherIcon.setAttribute('src', iconurl);
+// var list = document.createElement("ul");
+// var currentTemp = document.createElement("li");
+// currentTemp.textContent = "Temp: " + data.current.temp + " °F";
+// var currentWind = document.createElement("li");
+// currentWind.textContent = "Wind: " + data.current.wind_speed + " MPH";
+// var currentHumidity = document.createElement("li");
+// currentHumidity.textContent = "Humidity: " + data.current.humidity + "%";
+// var currentUv = document.createElement("li");
+
+            // list.append(h2El, weatherIcon, currentTemp, currentWind, currentHumidity, currentUv);
+            // currentWeatherContainer.append(h2El, list);
+
+            // there might be another api to use
+            // this is a seven - day report

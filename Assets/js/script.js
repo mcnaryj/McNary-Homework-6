@@ -5,12 +5,10 @@ var apiUrlOneCall = "https://api.openweathermap.org/data/2.5/onecall?"
 var apiURL = "https://api.openweathermap.org/data/2.5/weather?q=";
 var city = "";
 searchedCity = document.querySelector("#search-city");
-
 // var clearHistory = $("#clear-history");
 currentWeatherContainer = document.querySelector("#current-weather");
-
 fiveDayContainer = document.querySelector("#five-day-container");
-
+recentSearches = document.querySelector("#recent-searches");
 
 
 function getLatLon(cityInput) {
@@ -25,31 +23,30 @@ function getLatLon(cityInput) {
                 response.json().then(function (data) {
                     var latitude = data.coord.lat;
                     var longitude = data.coord.lon;
+                    localStorage.setItem("Longitude", longitude);
+                    localStorage.setItem("Latitude", latitude);
                     console.log(latitude, longitude);
                     var exclude = "&exclude=minutely,hourly";
                     var units = "&units=imperial";
                     var newSearch = apiUrlOneCall + "lat=" + latitude + "&lon=" + longitude + units + exclude + "&appid=" + APIKey;
                     console.log(newSearch);
                     console.log(data);
+
                     displayWeather(newSearch);
 
                 });
             } else {
                 alert('Error: ' + response.statusText);
             }
+
         })
+    uvIndex();
+
+
 
 }
 
-$('#search-button').on("click", (event) => {
-    event.preventDefault();
-    searchedCity = $('#search-city').val();
-    console.log(searchedCity);
-    currentWeather(searchedCity);
-    localStorage.setItem("cities", searchedCity)
-    getLatLon();
 
-});
 function displayWeather(newSearch) {
     fetch(newSearch)
         .then(function (response) {
@@ -64,10 +61,8 @@ function displayWeather(newSearch) {
                 var weatherCard = document.createElement('div');
                 weatherCard.classList.add('col-2', 'card', 'weatherCard');
                 weatherCard.style.marginLeft = '25px';
-                console.log(weatherCard);
                 var weatherBody = document.createElement('div');
                 weatherBody.classList.add('card-body');
-
                 var weatherList = document.createElement('ul');
                 weatherList.style.listStyle = 'none'
                 weatherList.style.paddingLeft = '0px'
@@ -97,13 +92,37 @@ function displayWeather(newSearch) {
             }
         });
 }
-// created function to get the current weather in a given city from the OWM API
-var currentWeather = (searchedCity) => {
-    // let city = $('#search-city').val();
-    // searchedCity = $('#search-city').val();
-    console.log("something doing");
+
+function uvIndex() {
     let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchedCity + "&units=imperial" + "&appid=" + APIKey;
-    console.log(queryURL);
+    // fetch(queryURL1)
+    // let latitude = localStorage.getItem("Longitude");
+    // let longitude = localStorage.getItem("Latitude");
+    // let uvQueryURL = "api.openweathermap.org/data/2.5/uvi?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey;
+    // console.log(queryURL);
+    fetch(queryURL)
+        .then((response) => {
+            return response.json();
+        })
+        .then((response) => {
+            console.log(response);
+            let uvIndex = response.value;
+            $('#uvIndex').html(`UV Index: <span id="uvVal"> ${uvIndex}</span>`);
+            if (uvIndex >= 0 && uvIndex < 3) {
+                $('#uvVal').attr("class", "uv-favorable");
+            } else if (uvIndex >= 3 && uvIndex < 8) {
+                $('#uvVal').attr("class", "uv-moderate");
+            } else if (uvIndex >= 8) {
+                $('#uvVal').attr("class", "uv-severe");
+            }
+        });
+}
+
+// created function to get the current weather in a given city from the OWM API
+function currentWeather() {
+    // let city = $('#search-city').val();
+    searchedCity = $('#search-city').val();
+    let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchedCity + "&units=imperial" + "&appid=" + APIKey;
     fetch(queryURL)
         .then((response) => {
             return response.json();
@@ -117,37 +136,56 @@ var currentWeather = (searchedCity) => {
             let currentMoment = moment.unix(currentTimeUTC).utc().utcOffset(currentTimeZoneOffsetHours);
             $('#header-text').text(response.name);
 
+
             let currentWeatherHTML = `
             <h3>${response.name} ${currentMoment.format("(MM/DD/YY)")}<img src="${weatherIcon}"></h3>
             <div class="list-unstyled">
                 <div>Temperature: ${response.main.temp}&#8457;</div>
                 <div>Humidity: ${response.main.humidity}%</div>
                 <div>Wind Speed: ${response.wind.speed} mph</div>
-                <div id="uvIndex">UV Index: ${uvIndex}</div>
-
+                <div class="uvIndex">UV Index: ${response.value}</div>
             </div>`;
-
+            // <div id="uvIndex">UV Index: ${uvIndex}</div>
+            // UVbtn.textContent = data.current.uvi;
+            // console.log(data.current.uvi);
             $('#current-weather').html(currentWeatherHTML);
+
         })
 }
 
-
-
-
 // loop tracking previous cities
-for (var i = 0; i < savedCities.length; i++) {
-    previousButton(savedCities[i]);
-}
 
 
 // function to clear existing search history
-function clearHistory(event) {
-    event.preventDefault();
-    storedCity = [];
-    localStorage.removeItem("cities");
-    document.location.reload();
+// function clearHistory(event) {
+//     event.preventDefault();
+//     storedCity = [];
+//     localStorage.removeItem("cities");
+//     document.location.reload();
+// }
+
+function addCity(storedCity) {
+    storedCity = localStorage.getItem("cities");
+
+    {
+        var previousSearch = $('<div>').text(storedCity);
+        $('#recent-searches').append(previousSearch)
+    }
 }
 
+$('#search-button').on("click", (event) => {
+    event.preventDefault();
+    searchedCity = $('#search-city').val();
+    console.log(searchedCity);
+    currentWeather(searchedCity);
+    localStorage.setItem("cities", searchedCity)
+    getLatLon();
+    addCity();
 
-$('#clear-history').on('click', clearHistory);
+});
 
+$('#clear-history').on('click', (event) => {
+    event.preventDefault();
+    localStorage.removeItem("cities");
+    document.location.reload();
+});

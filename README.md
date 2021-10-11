@@ -41,7 +41,7 @@ When a timeblock is clicked, the user may enter an event and save it (if the tim
 
 The following image shows the web application's appearance and functionality:
 
-![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for a given city.](Assets/images/06-server-side-apis-homework-demo.png)
+![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for a given city.](Assets/images/06-server-side-apis-homework-demo.gif)
 
 
 ## Notes

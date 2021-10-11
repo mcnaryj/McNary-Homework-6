@@ -94,14 +94,14 @@ function fiveDayForecast(newSearch) {
             let uvIndex = dataObj.current.uvi;
             for (var i = 1; i < dataObj.daily.length - 2; i++) {
                 console.log(dataObj.daily.length);
-                var weatherCard = document.createElement('div');
-                weatherCard.classList.add('col-2', 'card', 'weatherCard');
-                weatherCard.style.marginLeft = '25px';
-                var weatherBody = document.createElement('div');
-                weatherBody.classList.add('card-body');
-                var weatherList = document.createElement('ul');
-                weatherList.style.listStyle = 'none'
-                weatherList.style.paddingLeft = '0px'
+                var fiveDayCard = document.createElement('div');
+                fiveDayCard.classList.add('col-2', 'card', 'fiveDayCard');
+                fiveDayCard.style.marginLeft = '25px';
+                var fiveDayBody = document.createElement('div');
+                fiveDayBody.classList.add('card-body');
+                var fiveDayList = document.createElement('ul');
+                fiveDayList.style.listStyle = 'none'
+                fiveDayList.style.paddingLeft = '0px'
 
                 var dateEl = document.createElement('h5');
                 dateEl.textContent = moment.unix(dataObj.daily[i].dt).format("MM/DD/YYYY");
@@ -111,19 +111,19 @@ function fiveDayForecast(newSearch) {
                 var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
                 weatherIcon.setAttribute('src', iconurl);
 
-                var tempEl = document.createElement('li');
-                tempEl.textContent = "Temp: " + dataObj.daily[i].temp.day + " °F";
+                var fiveDayTemp = document.createElement('li');
+                fiveDayTemp.textContent = "Temp: " + dataObj.daily[i].temp.day + " °F";
 
-                var windEl = document.createElement('li');
-                windEl.textContent = "Wind: " + dataObj.daily[i].wind_speed + " MPH";
+                var fiveDayWind = document.createElement('li');
+                fiveDayWind.textContent = "Wind: " + dataObj.daily[i].wind_speed + " MPH";
 
-                var humidityEl = document.createElement('li');
-                humidityEl.textContent = "Humidity: " + dataObj.daily[i].humidity + "%";
+                var fiveDayHumidity = document.createElement('li');
+                fiveDayHumidity.textContent = "Humidity: " + dataObj.daily[i].humidity + "%";
 
-                weatherList.append(tempEl, windEl, humidityEl);
-                weatherBody.append(dateEl, weatherIcon, weatherList);
-                weatherCard.append(weatherBody);
-                fiveDayContainer.append(weatherCard);
+                fiveDayList.append(fiveDayTemp, fiveDayWind, fiveDayHumidity);
+                fiveDayBody.append(dateEl, weatherIcon, fiveDayList);
+                fiveDayCard.append(fiveDayBody);
+                fiveDayContainer.append(fiveDayCard);
                 // currently prints the 5-day weather forecast twice with repeat searches. Definitely something to handle in the refactor
 
             }
@@ -150,7 +150,6 @@ function addCity(storedCity) {
     {
         var previousSearch = $('<button>').text(storedCity)
         $('#recent-searches').append(previousSearch)
-        previousSearch.setAttribute("class", "row");
 
     }
 
@@ -168,7 +167,7 @@ function previousSearchBtn(storedCity) {
 }
 
 // calling the function, not sure exactly what variable to put in here
-previousSearchBtn(storedCity);
+previousSearchBtn();
 
 // event listener to search for a city - starts the other functions getLatLon and addCity
 $('#search-button').on("click", (event) => {
